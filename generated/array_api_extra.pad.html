@@ -207,11 +207,17 @@
 <li class="toctree-l2"><a class="reference internal" href="array_api_extra.cov.html">array_api_extra.cov</a></li>
 <li class="toctree-l2"><a class="reference internal" href="array_api_extra.create_diagonal.html">array_api_extra.create_diagonal</a></li>
 <li class="toctree-l2"><a class="reference internal" href="array_api_extra.expand_dims.html">array_api_extra.expand_dims</a></li>
+<li class="toctree-l2"><a class="reference internal" href="array_api_extra.isclose.html">array_api_extra.isclose</a></li>
 <li class="toctree-l2"><a class="reference internal" href="array_api_extra.kron.html">array_api_extra.kron</a></li>
 <li class="toctree-l2"><a class="reference internal" href="array_api_extra.nunique.html">array_api_extra.nunique</a></li>
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">array_api_extra.pad</a></li>
 <li class="toctree-l2"><a class="reference internal" href="array_api_extra.setdiff1d.html">array_api_extra.setdiff1d</a></li>
 <li class="toctree-l2"><a class="reference internal" href="array_api_extra.sinc.html">array_api_extra.sinc</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../testing-utils.html">Testing Utilities</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Testing Utilities</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="array_api_extra.testing.lazy_xp_function.html">array_api_extra.testing.lazy_xp_function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="array_api_extra.testing.patch_lazy_xp_functions.html">array_api_extra.testing.patch_lazy_xp_functions</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
@@ -270,8 +276,8 @@
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x</strong> (<em>array</em>) – Input array.</p></li>
-<li><p><strong>pad_width</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.13)"><em>tuple</em></a><em> of </em><em>ints</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em> of </em><em>pairs</em><em> of </em><em>ints</em>) – Pad the input array with this many elements from each side.
-If a list of tuples, <code class="docutils literal notranslate"><span class="pre">[(before_0,</span> <span class="pre">after_0),</span> <span class="pre">...</span> <span class="pre">(before_N,</span> <span class="pre">after_N)]</span></code>,
+<li><p><strong>pad_width</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.13)"><em>tuple</em></a><em> of </em><em>ints</em><em> or </em><em>sequence</em><em> of </em><em>pairs</em><em> of </em><em>ints</em>) – Pad the input array with this many elements from each side.
+If a sequence of tuples, <code class="docutils literal notranslate"><span class="pre">[(before_0,</span> <span class="pre">after_0),</span> <span class="pre">...</span> <span class="pre">(before_N,</span> <span class="pre">after_N)]</span></code>,
 each pair applies to the corresponding axis of <code class="docutils literal notranslate"><span class="pre">x</span></code>.
 A single tuple, <code class="docutils literal notranslate"><span class="pre">(before,</span> <span class="pre">after)</span></code>, is equivalent to a list of <code class="docutils literal notranslate"><span class="pre">x.ndim</span></code>
 copies of this tuple.</p></li>
