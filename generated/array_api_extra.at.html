@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="array_api_extra.atleast_nd" href="array_api_extra.atleast_nd.html" /><link rel="prev" title="API Reference" href="../api-reference.html" />
 
-    <!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
+    <!-- Generated with Sphinx 8.2.0 and Furo 2024.08.06 -->
         <title>array_api_extra.at - array-api-extra 0.6.1.dev0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
@@ -204,6 +204,7 @@
 <li class="toctree-l1 current has-children"><a class="reference internal" href="../api-reference.html">API Reference</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">array_api_extra.at</a></li>
 <li class="toctree-l2"><a class="reference internal" href="array_api_extra.atleast_nd.html">array_api_extra.atleast_nd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="array_api_extra.broadcast_shapes.html">array_api_extra.broadcast_shapes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="array_api_extra.cov.html">array_api_extra.cov</a></li>
 <li class="toctree-l2"><a class="reference internal" href="array_api_extra.create_diagonal.html">array_api_extra.create_diagonal</a></li>
 <li class="toctree-l2"><a class="reference internal" href="array_api_extra.expand_dims.html">array_api_extra.expand_dims</a></li>
@@ -270,7 +271,7 @@
 <h1>array_api_extra.at<a class="headerlink" href="#array-api-extra-at" title="Link to this heading">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="array_api_extra.at">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">array_api_extra.</span></span><span class="sig-name descname"><span class="pre">at</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx=&lt;object</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">/</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#array_api_extra.at" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">array_api_extra.</span></span><span class="sig-name descname"><span class="pre">at</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx=&lt;object</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">/</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#array_api_extra.at" title="Link to this definition">¶</a></dt>
 <dd><p>Update operations for read-only arrays.</p>
 <p>This implements <code class="docutils literal notranslate"><span class="pre">jax.numpy.ndarray.at</span></code> for all writeable
 backends (those that support <code class="docutils literal notranslate"><span class="pre">__setitem__</span></code>) and routes
@@ -359,7 +360,7 @@ index contains multiple occurrences of the same index, e.g.:</p>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <dl class="simple">
-<dt><a class="reference external" href="https://jax.readthedocs.io/en/latest/_autosummary/jax.numpy.ndarray.at.html#jax.numpy.ndarray.at" title="(in JAX)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">jax.numpy.ndarray.at</span></code></a></dt><dd><p>Equivalent array method in JAX.</p>
+<dt><a class="reference external" href="https://docs.jax.dev/en/latest/_autosummary/jax.numpy.ndarray.at.html#jax.numpy.ndarray.at" title="(in JAX)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">jax.numpy.ndarray.at</span></code></a></dt><dd><p>Equivalent array method in JAX.</p>
 </dd>
 </dl>
 </div>
@@ -367,6 +368,24 @@ index contains multiple occurrences of the same index, e.g.:</p>
 <p><a class="reference external" href="https://sparse.pydata.org/">sparse</a>, as well as read-only arrays from libraries
 not explicitly covered by <code class="docutils literal notranslate"><span class="pre">array-api-compat</span></code>, are not supported by update
 methods.</p>
+<p>Boolean masks are supported on Dask and jitted JAX arrays exclusively
+when <cite>idx</cite> has the same shape as <cite>x</cite> and <cite>y</cite> is 0-dimensional.
+Note that this support is not available in JAX’s native
+<code class="docutils literal notranslate"><span class="pre">x.at[mask].set(y)</span></code>.</p>
+<p>This pattern:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mask</span> <span class="o">=</span> <span class="n">m</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">mask</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Can’t be replaced by <cite>at</cite>, as it won’t work on Dask and JAX inside jax.jit:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mask</span> <span class="o">=</span> <span class="n">m</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">xpx</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">mask</span><span class="p">)</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">mask</span><span class="p">])</span>  <span class="c1"># Crash on Dask and jax.jit</span>
+</pre></div>
+</div>
+<p>You should instead use:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">xp</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">m</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
 <p class="rubric">Examples</p>
 <p>Given either of these equivalent expressions:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">array_api_extra</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xpx</span>

@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Contributing" href="../contributing.html" /><link rel="prev" title="array_api_extra.testing.lazy_xp_function" href="array_api_extra.testing.lazy_xp_function.html" />
 
-    <!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
+    <!-- Generated with Sphinx 8.2.0 and Furo 2024.08.06 -->
         <title>array_api_extra.testing.patch_lazy_xp_functions - array-api-extra 0.6.1.dev0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
@@ -204,6 +204,7 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="../api-reference.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="array_api_extra.at.html">array_api_extra.at</a></li>
 <li class="toctree-l2"><a class="reference internal" href="array_api_extra.atleast_nd.html">array_api_extra.atleast_nd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="array_api_extra.broadcast_shapes.html">array_api_extra.broadcast_shapes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="array_api_extra.cov.html">array_api_extra.cov</a></li>
 <li class="toctree-l2"><a class="reference internal" href="array_api_extra.create_diagonal.html">array_api_extra.create_diagonal</a></li>
 <li class="toctree-l2"><a class="reference internal" href="array_api_extra.expand_dims.html">array_api_extra.expand_dims</a></li>
@@ -270,11 +271,11 @@
 <h1>array_api_extra.testing.patch_lazy_xp_functions<a class="headerlink" href="#array-api-extra-testing-patch-lazy-xp-functions" title="Link to this heading">¶</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="array_api_extra.testing.patch_lazy_xp_functions">
-<span class="sig-prename descclassname"><span class="pre">array_api_extra.testing.</span></span><span class="sig-name descname"><span class="pre">patch_lazy_xp_functions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">monkeypatch</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xp</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#array_api_extra.testing.patch_lazy_xp_functions" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">array_api_extra.testing.</span></span><span class="sig-name descname"><span class="pre">patch_lazy_xp_functions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">monkeypatch</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">xp</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#array_api_extra.testing.patch_lazy_xp_functions" title="Link to this definition">¶</a></dt>
 <dd><p>Test lazy execution of functions tagged with <a class="reference internal" href="array_api_extra.testing.lazy_xp_function.html#array_api_extra.testing.lazy_xp_function" title="array_api_extra.testing.lazy_xp_function"><code class="xref py py-func docutils literal notranslate"><span class="pre">lazy_xp_function()</span></code></a>.</p>
 <p>If <code class="docutils literal notranslate"><span class="pre">xp==jax.numpy</span></code>, search for all functions which have been tagged with
 <a class="reference internal" href="array_api_extra.testing.lazy_xp_function.html#array_api_extra.testing.lazy_xp_function" title="array_api_extra.testing.lazy_xp_function"><code class="xref py py-func docutils literal notranslate"><span class="pre">lazy_xp_function()</span></code></a> in the globals of the module that defines the current test
-and wrap them with <a class="reference external" href="https://jax.readthedocs.io/en/latest/_autosummary/jax.jit.html#jax.jit" title="(in JAX)"><code class="xref py py-func docutils literal notranslate"><span class="pre">jax.jit()</span></code></a>. Unwrap them at the end of the test.</p>
+and wrap them with <a class="reference external" href="https://docs.jax.dev/en/latest/_autosummary/jax.jit.html#jax.jit" title="(in JAX)"><code class="xref py py-func docutils literal notranslate"><span class="pre">jax.jit()</span></code></a>. Unwrap them at the end of the test.</p>
 <p>If <code class="docutils literal notranslate"><span class="pre">xp==dask.array</span></code>, wrap the functions with a decorator that disables
 <code class="docutils literal notranslate"><span class="pre">compute()</span></code> and <code class="docutils literal notranslate"><span class="pre">persist()</span></code>.</p>
 <p>This function should be typically called by your library’s <cite>xp</cite> fixture that runs
@@ -291,7 +292,7 @@ tests on multiple backends:</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>request</strong> (<em>pytest.FixtureRequest</em>) – Pytest fixture, as acquired by the test itself or by one of its fixtures.</p></li>
 <li><p><strong>monkeypatch</strong> (<em>pytest.MonkeyPatch</em>) – Pytest fixture, as acquired by the test itself or by one of its fixtures.</p></li>
-<li><p><strong>xp</strong> (<em>module</em>) – Array namespace to be tested.</p></li>
+<li><p><strong>xp</strong> (<em>array_namespace</em>) – Array namespace to be tested.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
