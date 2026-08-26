@@ -251,6 +251,7 @@
 <li class="toctree-l2 has-children"><a class="reference internal" href="api-statistical.html">Statistical Functions</a><input aria-label="Toggle navigation of Statistical Functions" class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/array_api_extra.cov.html">cov</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/array_api_extra.nanmax.html">nanmax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/array_api_extra.nanmean.html">nanmean</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/array_api_extra.nanmin.html">nanmin</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/array_api_extra.nansum.html">nansum</a></li>
 </ul>
@@ -421,7 +422,7 @@ and copy it next to your vendored array-api-extra:</p>
 </li>
 <li><p>Create a new hook file which array-api-extra will use instead of the
 top-level array-api-compat if present:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">echo</span> <span class="s1">&#39;from mylib.vendored.array_api_compat import *&#39;</span> <span class="o">&gt;</span> <span class="n">mylib</span><span class="o">/</span><span class="n">vendored</span><span class="o">/</span><span class="n">_array_api_compat_vendor</span><span class="o">.</span><span class="n">py</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">echo</span> <span class="s1">'from mylib.vendored.array_api_compat import *'</span> <span class="o">&gt;</span> <span class="n">mylib</span><span class="o">/</span><span class="n">vendored</span><span class="o">/</span><span class="n">_array_api_compat_vendor</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
 </li>
